@@ -1,0 +1,12 @@
+AllCops:
+    Exclude:
+        - 'files/default/vendor/**/*'
+
+IndentationWidth:
+    Width: 4
+
+LineLength:
+    Max: 85
+
+Documentation:
+    Enabled: false

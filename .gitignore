@@ -1,0 +1,22 @@
+.vagrant
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
+
+.kitchen/
+.kitchen.local.yml
+
+test/integration/nodes
+
+/data_bags
+/nodes
+/roles
+/environments

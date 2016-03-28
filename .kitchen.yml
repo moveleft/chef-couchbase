@@ -1,0 +1,53 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  data_bags_path: test/fixtures/data_bags
+
+platforms:
+- name: debian-8
+  driver:
+    vagrantfile_erb: Vagrantfile.erb
+  driver_config:
+    box: debian/jessie64
+    box_url: https://atlas.hashicorp.com/debian/boxes/jessie64/versions/8.3.0/providers/virtualbox.box
+    customize:
+      memory: 1536
+
+suites:
+  - name: node1
+    provisioner:
+      name: nodes
+    driver:
+      vm_hostname: node1.integration.monsenso.com
+      network:
+        - ["private_network", { ip: "192.168.66.66" }]
+    run_list:
+      - recipe[test-utility::set_non_nat_vbox_ip]
+      - recipe[test-utility::set_hosts]
+      - recipe[chef-couchbase::node]
+    attributes:
+      couchbase:
+        cluster_search_query: recipes:chef-couchbase\:\:void
+      test_utility:
+        hosts:
+          192.168.66.66: node1.integration.monsenso.com
+          192.168.66.67: node2.integration.monsenso.com
+  - name: node2
+    provisioner:
+      name: nodes
+    driver:
+      vm_hostname: node2.integration.monsenso.com
+      network:
+        - ["private_network", { ip: "192.168.66.67" }]
+    run_list:
+      - recipe[test-utility::set_non_nat_vbox_ip]
+      - recipe[test-utility::set_hosts]
+      - recipe[chef-couchbase::node]
+    attributes:
+      test_utility:
+        hosts:
+          192.168.66.66: node1.integration.monsenso.com
+          192.168.66.67: node2.integration.monsenso.com

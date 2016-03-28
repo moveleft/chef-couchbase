@@ -1,0 +1,14 @@
+DEPENDENCIES
+  chef-couchbase
+    path: .
+    metadata: true
+  test-utility
+    path: ../test-utility
+
+GRAPH
+  chef-couchbase (0.1.0)
+    chef-vault (>= 0.0.0)
+  chef-vault (1.3.3)
+  hostsfile (2.4.5)
+  test-utility (0.0.1)
+    hostsfile (>= 0.0.0)
